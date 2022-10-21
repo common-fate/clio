@@ -95,12 +95,12 @@ func (e *CLIError) Error() string {
 // PrintCLIError prints the error message and then any messages in order from the slice
 // The indended use is to surface errors with useful messages then os.Exit without having to place os.Exit within methods other than the cli main function
 //
-// err := CLIError{Err: errors.New("new error"), Messages: []Printer{LogMsg("hello world")}}
+//	err := CLIError{Err: errors.New("new error"), Messages: []Printer{LogMsg("hello world")}}
 //
-// err.PrintCLIError()
-// // produces
-// [e] new error
-// hello world
+//	err.PrintCLIError()
+//	// produces
+//	[e] new error
+//	hello world
 func (e *CLIError) PrintCLIError() {
 	if !e.ExcludeDefaultError {
 		Error("%s", e.Err)
