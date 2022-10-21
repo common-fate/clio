@@ -2,40 +2,50 @@
 package clio
 
 import (
-	"fmt"
+	"log"
 	"os"
 	"strings"
 
 	"github.com/fatih/color"
 )
 
+var (
+	// ErrorWriter defaults to stderr
+	ErrorWriter = color.Error
+	// OutputWriter defaults to stdout
+	OutputWriter = color.Output
+)
+
+var stderr = log.New(ErrorWriter, "", 0)
+var stdout = log.New(OutputWriter, "", 0)
+
 // Log prints to stdout.
 func Log(format string, a ...interface{}) {
-	color.White(format, a...)
+	stdout.Printf(format, a...)
 }
 
 // Info prints to stderr with an [i] indicator.
 func Info(format string, a ...interface{}) {
 	format = "[i] " + format
-	fmt.Fprintln(color.Error, color.WhiteString(format, a...))
+	stderr.Printf(color.WhiteString(format, a...))
 }
 
 // Success prints to stderr with a [✔] indicator.
 func Success(format string, a ...interface{}) {
 	format = "[✔] " + format
-	fmt.Fprintln(color.Error, color.GreenString(format, a...))
+	stderr.Printf(format, color.GreenString(format, a...))
 }
 
 // Error prints to stderr with a [✘] indicator.
 func Error(format string, a ...interface{}) {
 	format = "[✘] " + format
-	fmt.Fprintln(color.Error, color.RedString(format, a...))
+	stderr.Printf(color.RedString(format, a...))
 }
 
 // Warn prints to stderr with a [!] indicator.
 func Warn(format string, a ...interface{}) {
 	format = "[!] " + format
-	fmt.Fprintln(color.Error, color.YellowString(format, a...))
+	stderr.Printf(color.YellowString(format, a...))
 }
 
 // Warn prints to stderr with a [DEBUG] indicator
@@ -43,7 +53,7 @@ func Warn(format string, a ...interface{}) {
 func Debug(format string, a ...interface{}) {
 	if isDebug() {
 		format = "[DEBUG] " + format
-		fmt.Fprintln(color.Error, color.HiBlackString(format, a...))
+		stderr.Printf(color.HiBlackString(format, a...))
 	}
 }
 
