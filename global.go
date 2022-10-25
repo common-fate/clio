@@ -65,3 +65,13 @@ func S() *zap.SugaredLogger {
 	globalMu.RUnlock()
 	return s
 }
+
+// ReplaceGlobals replaces the global Logger and SugaredLogger, and returns a
+// function to restore the original values. It's safe for concurrent use.
+func ReplaceGlobals(logger *zap.Logger) func() {
+	globalMu.Lock()
+	prev := stderr.Desugar()
+	stderr = logger.Sugar()
+	globalMu.Unlock()
+	return func() { ReplaceGlobals(prev) }
+}
