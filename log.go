@@ -36,32 +36,32 @@ func Debugf(template string, args ...any) {
 	S().Debugf(template, args...)
 }
 
-// Logln prints to stdout without any formatting directives.
+// Logln prints to stdout using fmt.Sprintln.
 func Logln(args ...any) {
 	stdoutlog.Println(args...)
 }
 
-// Infoln prints to stderr with an [i] indicator without any formatting directives.
+// Infoln prints to stderr with an [i] indicator using fmt.Sprintln.
 func Infoln(args ...any) {
 	S().Infoln(args...)
 }
 
-// Successln prints to stderr with a [✔] indicator without any formatting directives.
+// Successln prints to stderr with a [✔] indicator using fmt.Sprintln.
 func Successln(args ...any) {
 	S().Named(cliolog.SuccessName).Infoln(args...)
 }
 
-// Errorln prints to stderr with a [✘] indicator without any formatting directives.
+// Errorln prints to stderr with a [✘] indicator using fmt.Sprintln.
 func Errorln(args ...any) {
 	S().Errorln(args...)
 }
 
-// Warnln prints to stderr with a [!] indicator without any formatting directives.
+// Warnln prints to stderr with a [!] indicator using fmt.Sprintln.
 func Warnln(args ...any) {
 	S().Warnln(args...)
 }
 
-// Debugln prints to stderr with a [DEBUG] indicator without any formatting directives.
+// Debugln prints to stderr with a [DEBUG] indicator using fmt.Sprintln.
 // Messages will be shown if the GRANTED_LOG or CF_LOG environment variable is set to 'debug'.
 func Debugln(args ...any) {
 	S().Debugln(args...)
@@ -72,27 +72,27 @@ func Log(args ...any) {
 	stdoutlog.Print(args...)
 }
 
-// Info prints to stderr with an [i] indicator without any formatting directives.
+// Info prints to stderr with an [i] indicator using fmt.Sprint.
 func Info(args ...any) {
 	S().Info(args...)
 }
 
-// Success prints to stderr with a [✔] indicator without any formatting directives.
+// Success prints to stderr with a [✔] indicator using fmt.Sprint.
 func Success(args ...any) {
 	S().Named(cliolog.SuccessName).Info(args...)
 }
 
-// Error prints to stderr with a [✘] indicator without any formatting directives.
+// Error prints to stderr with a [✘] indicator using fmt.Sprint.
 func Error(args ...any) {
 	S().Error(args...)
 }
 
-// Warn prints to stderr with a [!] indicator without any formatting directives.
+// Warn prints to stderr with a [!] indicator using fmt.Sprint.
 func Warn(args ...any) {
 	S().Warn(args...)
 }
 
-// Debug prints to stderr with a [DEBUG] indicator without any formatting directives.
+// Debug prints to stderr with a [DEBUG] indicator using fmt.Sprint.
 // Messages will be shown if the GRANTED_LOG or CF_LOG environment variable is set to 'debug'.
 func Debug(args ...any) {
 	S().Debug(args...)
