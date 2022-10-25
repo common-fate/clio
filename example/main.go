@@ -6,6 +6,9 @@ import (
 )
 
 func main() {
+	// set the level to 'debug' to demonstrate all messages being printed.
+	clio.SetLevelFromString("debug")
+
 	clio.Infof("this is an example of calling clio.Infof with no argument %s")
 
 	clio.Info("hello %s from clio.Info", "world")
