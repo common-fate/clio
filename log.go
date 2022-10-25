@@ -48,12 +48,50 @@ func Warn(format string, a ...interface{}) {
 	stderr.Printf(color.YellowString(format, a...))
 }
 
-// Warn prints to stderr with a [DEBUG] indicator
+// Debug prints to stderr with a [DEBUG] indicator
 // if the GRANTED_LOG environment variable is set to 'debug'.
 func Debug(format string, a ...interface{}) {
 	if isDebug() {
 		format = "[DEBUG] " + format
 		stderr.Printf(color.HiBlackString(format, a...))
+	}
+}
+
+// Logln prints to stdout without any formatting directives.
+func Logln(message string) {
+	stdout.Println(message)
+}
+
+// Infoln prints to stderr with an [i] indicator  without any formatting directives.
+func Infoln(message string) {
+	message = "[i] " + message
+	stderr.Println(color.WhiteString(message))
+}
+
+// Successln prints to stderr with a [✔] indicator  without any formatting directives.
+func Successln(message string) {
+	message = "[✔] " + message
+	stderr.Println(color.GreenString(message))
+}
+
+// Errorln prints to stderr with a [✘] indicator  without any formatting directives.
+func Errorln(message string) {
+	message = "[✘] " + message
+	stderr.Println(color.RedString(message))
+}
+
+// Warnln prints to stderr with a [!] indicator  without any formatting directives.
+func Warnln(message string) {
+	message = "[!] " + message
+	stderr.Println(color.YellowString(message))
+}
+
+// Debugln prints to stderr with a [DEBUG] indicator  without any formatting directives
+// if the GRANTED_LOG environment variable is set to 'debug'.
+func Debugln(message string) {
+	if isDebug() {
+		message = "[DEBUG] " + message
+		stderr.Println(color.HiBlackString(message))
 	}
 }
 
