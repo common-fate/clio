@@ -33,7 +33,7 @@ func Info(format string, a ...interface{}) {
 // Success prints to stderr with a [✔] indicator.
 func Success(format string, a ...interface{}) {
 	format = "[✔] " + format
-	stderr.Printf(format, color.GreenString(format, a...))
+	stderr.Printf(color.GreenString(format, a...))
 }
 
 // Error prints to stderr with a [✘] indicator.
