@@ -1,6 +1,7 @@
 package clio_test
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/common-fate/clio"
@@ -32,4 +33,20 @@ func Example_levelFromString() {
 	clio.SetLevelFromString("debug")
 	clio.Debug("debug logs now printed!")
 	// Output: [DEBUG] debug logs now printed!
+}
+
+// You can use `clio.IsDebug()` to check whether debug logging is enabled.
+// This can be useful to configure other packages to enable debug logging in them.
+// Don't use this to conditionally print log messages - just call
+// `clio.Debug()` and let the built-in log levels do their thing.
+func Example_checkingLogLevel() {
+	fmt.Printf("default debug logging: %v\n", clio.IsDebug())
+
+	clio.SetLevelFromString("debug")
+
+	if clio.IsDebug() {
+		fmt.Println("debug logging enabled!")
+	}
+	// Output: default debug logging: false
+	// debug logging enabled!
 }
