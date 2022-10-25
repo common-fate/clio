@@ -37,6 +37,15 @@ const (
 	ErrorMsgType   MsgType = "ERROR"
 	WarnMsgType    MsgType = "WARN"
 	DebugMsgType   MsgType = "DEBUG"
+
+	// The below types do not accept formatting directives
+
+	LoglnMsgType     MsgType = "LOG_LN"
+	InfolnMsgType    MsgType = "INFO_LN"
+	SuccesslnMsgType MsgType = "SUCCESS_LN"
+	ErrorlnMsgType   MsgType = "ERROR_LN"
+	WarnlnMsgType    MsgType = "WARN_LN"
+	DebuglnMsgType   MsgType = "DEBUG_LN"
 )
 
 type Msg struct {
@@ -56,7 +65,18 @@ func (m Msg) Print() {
 		Warn(m.Msg)
 	case DebugMsgType:
 		Debug(m.Msg)
-
+	case InfolnMsgType:
+		Infoln(m.Msg)
+	case SuccesslnMsgType:
+		Successln(m.Msg)
+	case ErrorlnMsgType:
+		Errorln(m.Msg)
+	case WarnlnMsgType:
+		Warnln(m.Msg)
+	case DebuglnMsgType:
+		Debugln(m.Msg)
+	case LoglnMsgType:
+		Logln(m.Msg)
 	default:
 		Log(m.Msg)
 	}
@@ -84,6 +104,42 @@ func WarnMsg(format string, a ...interface{}) Msg {
 
 func DebugMsg(format string, a ...interface{}) Msg {
 	return Msg{Msg: fmt.Sprintf(format, a...), Type: DebugMsgType}
+}
+
+// LoglnMsg is like LogMsg but it does not take any formatting directives
+// this makes it possible to print % symbols without escaping them
+func LoglnMsg(message string) Msg {
+	return Msg{Msg: message, Type: LoglnMsgType}
+}
+
+// InfolnMsg is like InfoMsg but it does not take any formatting directives
+// this makes it possible to print % symbols without escaping them
+func InfolnMsg(message string) Msg {
+	return Msg{Msg: message, Type: InfolnMsgType}
+}
+
+// SuccesslnMsg is like SuccessMsg but it does not take any formatting directives
+// this makes it possible to print % symbols without escaping them
+func SuccesslnMsg(message string) Msg {
+	return Msg{Msg: message, Type: SuccesslnMsgType}
+}
+
+// ErrorlnMsg is like ErrorMsg but it does not take any formatting directives
+// this makes it possible to print % symbols without escaping them
+func ErrorlnMsg(message string) Msg {
+	return Msg{Msg: message, Type: ErrorlnMsgType}
+}
+
+// WarnlnMsg is like WarnMsg but it does not take any formatting directives
+// this makes it possible to print % symbols without escaping them
+func WarnlnMsg(message string) Msg {
+	return Msg{Msg: message, Type: WarnlnMsgType}
+}
+
+// DebuglnMsg is like DebugMsg but it does not take any formatting directives
+// this makes it possible to print % symbols without escaping them
+func DebuglnMsg(message string) Msg {
+	return Msg{Msg: message, Type: DebuglnMsgType}
 }
 
 // Error implements the error interface. It uses the default message of the
