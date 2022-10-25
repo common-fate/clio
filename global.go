@@ -74,10 +74,10 @@ var (
 	stderrlog = log.New(errorWriter, "", 0)
 )
 
-// SetErrorWriter rebuilds the global zap logger with a specific writer.
+// SetErrWriter rebuilds the global zap logger with a specific writer.
 // All Info, Error, Warn, Debug, etc messages are sent here.
 // clio.Log messages are sent to stdout.
-func SetErrorWriter(w io.Writer) {
+func SetErrWriter(w io.Writer) {
 	globalMu.Lock()
 	defer globalMu.Unlock()
 
