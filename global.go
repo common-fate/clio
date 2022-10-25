@@ -15,26 +15,37 @@ import (
 // SetLevelFromEnv configures the global logging level based on the provided
 // environment variables.
 // The env vars should be provided in priority order.
-func SetLevelFromEnv(vars ...string) {
+// It returns a function which restores the previous log level.
+func SetLevelFromEnv(vars ...string) func() {
 	for _, e := range vars {
 		val := os.Getenv(e)
 		lvl, err := zapcore.ParseLevel(val)
 		if err == nil {
+			old := Level.Level()
 			Level.SetLevel(lvl)
-			return
+			return func() { Level.SetLevel(old) }
 		}
 	}
+	// if we get here, we couldn't parse any env vars.
+	// Return a no-op func as we did nothing.
+	return func() {}
 }
 
 // SetLevelFromString configures the global logging level based on the provided
 // string. Under the hood it uses zapcore.Parse() to try and parse the log level.
 // Does nothing if the log level can't be parsed.
-func SetLevelFromString(level string) {
+// It returns a function which restores the previous log level.
+func SetLevelFromString(level string) func() {
 	lvl, err := zapcore.ParseLevel(level)
 	if err == nil {
+		old := Level.Level()
 		Level.SetLevel(lvl)
-		return
+		return func() { Level.SetLevel(old) }
 	}
+
+	// if we get here, we couldn't parse the level.
+	// Return a no-op func as we did nothing.
+	return func() {}
 }
 
 var (

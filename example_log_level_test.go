@@ -40,6 +40,7 @@ func Example_levelFromString() {
 // Don't use this to conditionally print log messages - just call
 // `clio.Debug()` and let the built-in log levels do their thing.
 func Example_checkingLogLevel() {
+	clio.SetLevelFromString("info")
 	fmt.Printf("default debug logging: %v\n", clio.IsDebug())
 
 	clio.SetLevelFromString("debug")
