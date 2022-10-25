@@ -2,7 +2,6 @@ package cliolog
 
 import (
 	"io"
-	"os"
 	"time"
 
 	"github.com/mattn/go-colorable"
@@ -11,29 +10,12 @@ import (
 )
 
 type Options struct {
-	// LevelEnvVars will try and load log level from the provided environment
-	// variables. The slice defines the priority to load environment variables from.
-	// The first element in the slice is the highest priority.
-	LevelEnvVars []string
-	Writer       io.Writer
-	NoColor      *bool
-}
-
-func (o Options) LogLevel() zapcore.Level {
-	for _, e := range o.LevelEnvVars {
-		val := os.Getenv(e)
-		lvl, err := zapcore.ParseLevel(val)
-		if err == nil {
-			return lvl
-		}
-	}
-
-	// return info level by default
-	return zapcore.InfoLevel
+	Writer  io.Writer
+	NoColor *bool
 }
 
 // New returns a CLI-friendly zap logger which prints to stderr by default.
-func New(opts ...func(*Options)) *zap.Logger {
+func New(level zap.AtomicLevel, opts ...func(*Options)) *zap.Logger {
 	o := Options{
 		Writer: colorable.NewColorableStderr(),
 	}
@@ -41,8 +23,6 @@ func New(opts ...func(*Options)) *zap.Logger {
 	for _, opt := range opts {
 		opt(&o)
 	}
-
-	level := o.LogLevel()
 
 	ec := zap.NewDevelopmentEncoderConfig()
 	ec.EncodeLevel = SymbolLevelEncoder
@@ -54,15 +34,6 @@ func New(opts ...func(*Options)) *zap.Logger {
 		level,
 	))
 	return log
-}
-
-// WithLevelEnvVars specifies environment variables to load log levels from.
-// The variables are in priority order, with the first variable being the
-// highest priority.
-func WithLevelEnvVars(vars ...string) func(*Options) {
-	return func(o *Options) {
-		o.LevelEnvVars = vars
-	}
 }
 
 // WithWriter specifies an io.Writer to write logs to.
