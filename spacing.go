@@ -1,14 +1,15 @@
-// Package clio contains helpers for printing CLI output messages.
 package clio
 
-import "strings"
+import (
+	"strings"
+)
 
-// NewLine prints a newline to clio.OutputWriter
+// NewLine prints a newline to clio.ErrorWriter
 func NewLine() {
-	stdout.Println()
+	stderrlog.Println()
 }
 
-// NewLine prints n newline(s) to clio.OutputWriter
+// NewLines prints n newline(s) to clio.ErrorWriter
 func NewLines(n int) {
-	stdout.Printf(strings.Repeat("\n", n))
+	stderrlog.Printf(strings.Repeat("\n", n))
 }
