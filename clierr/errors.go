@@ -15,7 +15,7 @@ type PrintCLIErrorer interface {
 // Err is a CLI error.
 // Calling PrintCLIError() on it will print error messages to the console.
 type Err struct {
-	// Err is a string to avoid puntuation linting
+	// Err is a string to avoid punctuation linting
 	Err string
 	// setting ExcludeDefaultError to true will cause the PrintCLIError method to only print the contents of Messages
 	// by default PrintCLIError first prints the contents of Err, followed by the contents of Messages
@@ -114,37 +114,37 @@ func Warnf(format string, a ...any) Msg {
 	return Msg{Format: format, Args: a, msgtype: warnf}
 }
 
-// Debugf adds a formatted debug message. This message will only be displayed if CF_LOG or GRANTED_LOG is set to 'debug'.
+// Debugf adds a formatted debug message. This message will only be displayed if the logging level is set to 'debug'.
 func Debugf(format string, a ...any) Msg {
 	return Msg{Format: format, Args: a, msgtype: debugf}
 }
 
-// Logf adds a log message. Warning: this will be printed to stdout, rather than stderr.
+// Log adds a log message. Warning: this will be printed to stdout, rather than stderr.
 func Log(args ...any) Msg {
 	return Msg{Args: args, msgtype: logf}
 }
 
-// Infof adds an info message.
+// Info adds an info message.
 func Info(args ...any) Msg {
 	return Msg{Args: args, msgtype: info}
 }
 
-// Successf adds a success message.
+// Success adds a success message.
 func Success(args ...any) Msg {
 	return Msg{Args: args, msgtype: success}
 }
 
-// Errorf adds a error message.
+// Error adds a error message.
 func Error(args ...any) Msg {
 	return Msg{Args: args, msgtype: errort}
 }
 
-// Warnf adds a warning message.
+// Warn adds a warning message.
 func Warn(args ...any) Msg {
 	return Msg{Args: args, msgtype: warn}
 }
 
-// Debugf adds a debug message. This message will only be displayed if CF_LOG or GRANTED_LOG is set to 'debug'.
+// Debug adds a debug message. This message will only be displayed if the logging level is set to 'debug'.
 func Debug(args ...any) Msg {
 	return Msg{Args: args, msgtype: debug}
 }
