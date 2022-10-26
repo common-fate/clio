@@ -22,7 +22,7 @@ func levelToANSIColor(l zapcore.Level) string {
 	}
 	switch l {
 	case zapcore.DebugLevel:
-		return ansi.Black
+		return ansi.LightBlack
 	case zapcore.InfoLevel:
 		return ansi.White
 	case zapcore.WarnLevel:
