@@ -10,7 +10,7 @@ import (
 func Example_usage() {
 	clio.SetLevelFromString("debug")
 
-	clio.SetErrWriter(os.Stdout) // print to stdout just to show logs in the example.
+	clio.SetWriter(os.Stdout) // print to stdout just to show logs in the example.
 
 	// you can print basic logs like this
 	clio.Info("here's an info message")

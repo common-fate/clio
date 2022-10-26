@@ -7,7 +7,7 @@ import (
 
 func TestInfo(t *testing.T) {
 	var b bytes.Buffer
-	SetErrWriter(&b)
+	SetWriter(&b)
 	NoColor = true
 
 	Info("my message")
@@ -22,7 +22,7 @@ func TestInfo(t *testing.T) {
 
 func TestError(t *testing.T) {
 	var b bytes.Buffer
-	SetErrWriter(&b)
+	SetWriter(&b)
 	NoColor = true
 
 	Error("my message")

@@ -5,9 +5,9 @@ import (
 	"github.com/common-fate/clio/cliolog"
 )
 
-// Log prints to stdout.
+// Log prints to stderr with no prefix.
 func Logf(template string, args ...any) {
-	stdoutlog.Printf(template, args...)
+	S().Named(cliolog.NoPrefixName).Infof(template, args...)
 }
 
 // Info prints to stderr with an [i] indicator.
@@ -36,9 +36,9 @@ func Debugf(template string, args ...any) {
 	S().Debugf(template, args...)
 }
 
-// Logln prints to stdout using fmt.Sprintln.
+// Logln prints with no prefix using fmt.Sprintln.
 func Logln(args ...any) {
-	stdoutlog.Println(args...)
+	S().Named(cliolog.NoPrefixName).Infoln(args...)
 }
 
 // Infoln prints to stderr with an [i] indicator using fmt.Sprintln.
@@ -69,7 +69,7 @@ func Debugln(args ...any) {
 
 // Log uses fmt.Sprint to construct and log a message.
 func Log(args ...any) {
-	stdoutlog.Print(args...)
+	S().Named(cliolog.NoPrefixName).Info(args...)
 }
 
 // Info prints to stderr with an [i] indicator using fmt.Sprint.
