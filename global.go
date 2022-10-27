@@ -2,7 +2,6 @@ package clio
 
 import (
 	"io"
-	"log"
 	"os"
 	"sync"
 
@@ -57,8 +56,6 @@ var (
 
 	// errorWriter defaults to stderr
 	errorWriter = colorable.NewColorableStderr()
-	// outputWriter defaults to stdout
-	outputWriter = colorable.NewColorableStdout()
 
 	// stderr is a zap logger which writes to stderr
 	stderr = cliolog.New(
@@ -66,18 +63,12 @@ var (
 		cliolog.WithWriter(errorWriter),
 		cliolog.WithNoColor(&NoColor),
 	).Sugar()
-
-	// stdoutlog is a logger which writes to stdoutlog
-	stdoutlog = log.New(outputWriter, "", 0)
-
-	// stderrlog is a stdlib logger which writes to stderr
-	stderrlog = log.New(errorWriter, "", 0)
 )
 
-// SetErrWriter rebuilds the global zap logger with a specific writer.
+// SetWriter rebuilds the global zap logger with a specific writer.
 // All Info, Error, Warn, Debug, etc messages are sent here.
 // clio.Log messages are sent to stdout.
-func SetErrWriter(w io.Writer) {
+func SetWriter(w io.Writer) {
 	globalMu.Lock()
 	defer globalMu.Unlock()
 

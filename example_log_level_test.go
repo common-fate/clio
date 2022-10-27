@@ -17,7 +17,7 @@ func Example_levelFromEnv() {
 
 // You can use `clio.Level.SetLevel()` to set the log level dynamically.
 func Example_dynamicLevel() {
-	clio.SetErrWriter(os.Stdout) // print to stdout just to show logs in the example.
+	clio.SetWriter(os.Stdout) // print to stdout just to show logs in the example.
 
 	clio.Level.SetLevel(zapcore.InfoLevel)
 	clio.Debug("this isn't printed")
@@ -29,7 +29,7 @@ func Example_dynamicLevel() {
 
 // You can use `clio.SetLevelFromString()` to set the log level dynamically from a provided string.
 func Example_levelFromString() {
-	clio.SetErrWriter(os.Stdout) // print to stdout just to show logs in the example.
+	clio.SetWriter(os.Stdout) // print to stdout just to show logs in the example.
 
 	clio.SetLevelFromString("info")
 	clio.Debug("this isn't printed")

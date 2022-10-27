@@ -106,9 +106,11 @@ func (c *consoleEncoder) EncodeEntry(ent zapcore.Entry, fields []zapcore.Field) 
 	// color the level symbol and log message based on the level.
 	c.colorLevel(final.buf, ent.Level)
 
-	if c.LevelKey != "" {
-		final.skipNextElementSeparator = true
+	final.skipNextElementSeparator = c.LevelKey != ""
 
+	// if the logger name matches NoPrefixName, we don't print a log level prefix
+	// or color the output.
+	if c.LevelKey != "" && ent.LoggerName != NoPrefixName {
 		// zap doesn't have a 'success' level, nor does it have an easy way to define
 		// custom logging levels.
 		//
@@ -123,7 +125,7 @@ func (c *consoleEncoder) EncodeEntry(ent zapcore.Entry, fields []zapcore.Field) 
 		}
 	}
 
-	if final.buf.Len() > origLen {
+	if final.buf.Len() > origLen && ent.LoggerName != NoPrefixName {
 		final.buf.AppendString(" ")
 	} else {
 		final.buf.Reset()

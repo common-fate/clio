@@ -11,6 +11,10 @@ func main() {
 
 	clio.Infof("this is an example of calling clio.Infof with no argument %s")
 
+	clio.Log("hello %s from clio.Log", "world")
+	clio.Logf("hello %s from clio.Logf", "world")
+	clio.Logln("hello %s from clio.Logln", "world")
+
 	clio.Info("hello %s from clio.Info", "world")
 	clio.Infof("hello %s from clio.Infof", "world")
 	clio.Infoln("hello %s from clio.Infoln", "world")
