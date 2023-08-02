@@ -69,36 +69,42 @@ func WithNoColor(noColor *bool) func(*Options) {
 }
 
 type FileLoggerConfig struct {
-	Filename       string
-	MaxSize        *int
-	MaxBackups     *int
-	MaxAge         *int
-	ShouldCompress *bool
+	// Name of your log file
+	Filename string
+	// Maximum size of the log file in MB before it gets rotated.
+	// If set to 0 the default max size is used (1 MB)
+	MaxSize int
+	// Maximum number of old log files to retain.
+	// If set to 0 the default is 30
+	MaxBackups int
+	// Maximum number of days to retain old log files based on the timestamp encoded in their filename.
+	// If set to 0 the default is 90 days
+	MaxAge int
+
+	// ShouldCompress if set to true will compress the rotated log files using gzip.
+	ShouldCompress bool
 }
 
+// WithFileLogger will write logs to a file using lumberjack package in addition to printing it in console.
 func WithFileLogger(cfg FileLoggerConfig) func(*Options) {
 	loggerCfg := lumberjack.Logger{
 		Filename:   cfg.Filename,
 		MaxSize:    1,
 		MaxBackups: 30,
 		MaxAge:     90,
-		Compress:   false,
+		Compress:   cfg.ShouldCompress,
 	}
 
-	if cfg.MaxSize != nil {
-		loggerCfg.MaxSize = *cfg.MaxSize
+	if cfg.MaxAge != 0 {
+		loggerCfg.MaxAge = cfg.MaxAge
 	}
 
-	if cfg.MaxAge != nil {
-		loggerCfg.MaxAge = *cfg.MaxAge
+	if cfg.MaxSize != 0 {
+		loggerCfg.MaxSize = cfg.MaxSize
 	}
 
-	if cfg.MaxBackups != nil {
-		loggerCfg.MaxBackups = *cfg.MaxBackups
-	}
-
-	if cfg.ShouldCompress != nil {
-		loggerCfg.Compress = *cfg.ShouldCompress
+	if cfg.MaxBackups != 0 {
+		loggerCfg.MaxBackups = cfg.MaxBackups
 	}
 
 	ws := zapcore.AddSync(&loggerCfg)
