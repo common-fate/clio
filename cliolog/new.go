@@ -28,6 +28,8 @@ func New(level zap.AtomicLevel, opts ...func(*Options)) *zap.Logger {
 
 	ec := zap.NewDevelopmentEncoderConfig()
 	ec.EncodeLevel = SymbolLevelEncoder
+	// no-op time encoder, by default.
+	ec.EncodeTime = func(t time.Time, pae zapcore.PrimitiveArrayEncoder) {}
 
 	// if fileWriteSyncer is present then write logs to file as well as showing to console.
 	if o.FileWriteSyncer != nil {
@@ -41,9 +43,6 @@ func New(level zap.AtomicLevel, opts ...func(*Options)) *zap.Logger {
 
 		return zap.New(core)
 	}
-
-	// no-op time encoder, by default.
-	ec.EncodeTime = func(t time.Time, pae zapcore.PrimitiveArrayEncoder) {}
 
 	log := zap.New(zapcore.NewCore(
 		NewConsoleEncoder(&ec, o.NoColor),
