@@ -79,6 +79,15 @@ func SetWriter(w io.Writer) {
 	).Sugar()
 }
 
+func SetFileLogging(fcfg cliolog.FileLoggerConfig) {
+	stderr = cliolog.New(
+		Level,
+		cliolog.WithFileLogger(fcfg),
+		cliolog.WithWriter(errorWriter),
+		cliolog.WithNoColor(&NoColor),
+	).Sugar()
+}
+
 // G returns the global stderr logger
 // as a zap logger.
 func G() *zap.Logger {
