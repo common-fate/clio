@@ -35,7 +35,7 @@ func New(level zap.AtomicLevel, opts ...func(*Options)) *zap.Logger {
 	if o.FileWriteSyncer != nil {
 		fec := zap.NewProductionEncoderConfig()
 		fec.EncodeTime = zapcore.TimeEncoder(func(t time.Time, pae zapcore.PrimitiveArrayEncoder) {
-			pae.AppendString(t.UTC().Format("2023-01-02T15:04:05Z0700"))
+			pae.AppendString(t.UTC().Format("2006-01-02T15:04:05Z0700"))
 		})
 		fileEncoder := zapcore.NewJSONEncoder(fec)
 
