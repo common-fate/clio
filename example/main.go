@@ -9,6 +9,11 @@ func main() {
 	// set the level to 'debug' to demonstrate all messages being printed.
 	clio.SetLevelFromString("debug")
 
+	// uncomment to test file logging
+	// clio.SetFileLogging(cliolog.FileLoggerConfig{
+	// 	Filename: "log",
+	// })
+
 	clio.Infof("this is an example of calling clio.Infof with no argument %s")
 
 	clio.Log("hello %s from clio.Log", "world")
