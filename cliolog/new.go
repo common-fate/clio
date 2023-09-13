@@ -39,7 +39,8 @@ func New(level zap.AtomicLevel, opts ...func(*Options)) *zap.Logger {
 		})
 		fileEncoder := zapcore.NewJSONEncoder(fec)
 
-		core := zapcore.NewTee(zapcore.NewCore(fileEncoder, zapcore.AddSync(*o.FileWriteSyncer), level), zapcore.NewCore(NewConsoleEncoder(&ec, o.NoColor), zapcore.AddSync(o.Writer), level))
+		// fileEncoder should have debug level irrespective of provided level.
+		core := zapcore.NewTee(zapcore.NewCore(fileEncoder, zapcore.AddSync(*o.FileWriteSyncer), zap.DebugLevel), zapcore.NewCore(NewConsoleEncoder(&ec, o.NoColor), zapcore.AddSync(o.Writer), level))
 
 		return zap.New(core)
 	}
